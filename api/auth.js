@@ -27,7 +27,7 @@ app.use(
 // [POST] /login
 app.post('/login', async (req, res, next) => {
     const { username, password } = req.body;
-    const apiHost = process.env._AXIOS_BASE_URL_
+    const apiHost = process.env._AXIOS_BASE_URL_.split('/apiPrefix')[0]
     let loginRes = await axios.get( apiHost + api.member.login.main, {
         params: {
             loginName: username,
@@ -66,9 +66,9 @@ app.post('/login', async (req, res, next) => {
 app.get('/user', async (req, res, next) => {
     try{
         const { leaguerId, token } = req.user;
-        console.log(req.user)
+        console.log('router /user', req.user)
         let userUrl = api.member.info;
-        const apiHost = process.env._AXIOS_BASE_URL_
+        const apiHost = process.env._AXIOS_BASE_URL_.split('/apiPrefix')[0]
 
         let userRes = await axios.get( apiHost + userUrl, {
             params: {
@@ -91,7 +91,7 @@ app.get('/user', async (req, res, next) => {
 
 // [POST] /logout
 app.post('/logout', async (req, res, next) => {
-    const apiHost = process.env._AXIOS_BASE_URL_
+    const apiHost = process.env._AXIOS_BASE_URL_.split('/apiPrefix')[0]
     const logoutUrl = apiHost + api.member.logout;
     const { token } = req.user
     console.log(logoutUrl, token)

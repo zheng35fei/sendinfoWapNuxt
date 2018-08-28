@@ -35,23 +35,54 @@
 
             <div class="hs-nav">
                 <ul class="clearfix">
-                    <li><a href="/park/list"><img src="~/assets/images/index/icon_ticket.png" alt="...">
-                        <p>景区门票</p></a></li>
-                    <li><a href="/hotel/list"><img src="~/assets/images/index/icon_hotel.png" alt="...">
-                        <p>酒店住宿</p></a></li>
-                    <li><a href="/repast/list"><img src="~/assets/images/index/icon_foods.png" alt="...">
-                        <p>餐饮美食</p></a></li><!--li--><!--  a(href='list/strategy')-->
-                    <!--    img(src='images/index/icon_strategy.png', alt='...')--><!--    p 游玩攻略-->
-                    <li><a href="/route/list"><img src="~/assets/images/index/icon_strategy.png" alt="...">
-                        <p>跟团游</p></a></li>
-                    <li><a href="/combo/list"><img src="~/assets/images/index/icon_combo.png" alt="...">
-                        <p>游玩套餐</p></a></li>
-                    <li><a href="list/car"><img src="~/assets/images/index/icon_tram.png" alt="...">
-                        <p>交通包车</p></a></li>
-                    <li><a href="/guide/list"><img src="~/assets/images/index/icon_tour.png" alt="...">
-                        <p>导游</p></a></li>
-                    <li><a href="/shop/list"><img src="~/assets/images/index/icon_shopping.png" alt="...">
-                        <p>娱乐购物</p></a></li>
+                    <li>
+                        <nuxt-link to="/park/list">
+                            <img src="~assets/images/index/icon_ticket.png" alt="景区门票">
+                            <p>景区门票</p>
+                        </nuxt-link>
+                    </li>
+                    <li>
+                        <nuxt-link to="/park/list">
+                            <img src="~assets/images/index/icon_hotel.png" alt="酒店住宿">
+                            <p>酒店住宿</p>
+                        </nuxt-link>
+                    </li>
+                    <li>
+                        <nuxt-link to="/park/list">
+                            <img src="~assets/images/index/icon_foods.png" alt="餐饮美食">
+                            <p>餐饮美食</p>
+                        </nuxt-link>
+                    </li>
+                    <li>
+                        <nuxt-link to="/park/list">
+                            <img src="~assets/images/index/icon_strategy.png" alt="跟团游">
+                            <p>跟团游</p>
+                        </nuxt-link>
+                    </li>
+                    <li>
+                        <nuxt-link to="/park/list">
+                            <img src="~assets/images/index/icon_combo.png" alt="游玩套餐">
+                            <p>游玩套餐</p>
+                        </nuxt-link>
+                    </li>
+                    <li>
+                        <nuxt-link to="/park/list">
+                            <img src="~assets/images/index/icon_tram.png" alt="交通包车">
+                            <p>交通包车</p>
+                        </nuxt-link>
+                    </li>
+                    <li>
+                        <nuxt-link to="/park/list">
+                            <img src="~assets/images/index/icon_tour.png" alt="导游">
+                            <p>导游</p>
+                        </nuxt-link>
+                    </li>
+                    <li>
+                        <nuxt-link to="/park/list">
+                            <img src="~assets/images/index/icon_shopping.png" alt="娱乐购物">
+                            <p>娱乐购物</p>
+                        </nuxt-link>
+                    </li>
                 </ul>
             </div>
 
@@ -128,88 +159,40 @@
                 </div>
             </div>
 
-
-            <div class="hs-footer">
-                <ul>
-                    <li>
-                        <a href="/" class="on"><i class="icon-ihome"></i>
-                            <p>首页1</p>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="/order/list"><i class="icon-iorder"></i>
-                        <p>订单</p>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="/strategy/list"><i class="icon-nav-order"></i>
-                            <p>攻略</p>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="/user"><i class="icon-imember"></i>
-                            <p>我的</p>
-                        </a>
-                    </li>
-                </ul>
-            </div>
+            <Footer></Footer>
         </div>
-
-
-        <!--<div>-->
-        <!--<app-logo/>-->
-        <!--<h1 class="title">-->
-        <!--sendinfo-wap-->
-        <!--</h1>-->
-        <!--<h2 class="subtitle">-->
-        <!--Nuxt.js project-->
-        <!--</h2>-->
-        <!--<nuxt-link to="/park/list">parklist</nuxt-link>-->
-        <!--<br>-->
-        <!--<nuxt-link to="/login">login</nuxt-link>-->
-        <!--<br>-->
-        <!--<div @click="$auth.logout()">logout</div>-->
-        <!--<br>-->
-        <!--<div class="links">-->
-        <!--<a-->
-        <!--href="https://nuxtjs.org/"-->
-        <!--target="_blank"-->
-        <!--class="button&#45;&#45;green">Documentation</a>-->
-        <!--<a-->
-        <!--href="https://github.com/nuxt/nuxt.js"-->
-        <!--target="_blank"-->
-        <!--class="button&#45;&#45;grey">GitHub</a>-->
-        <!--</div>-->
-        <!--</div>-->
     </section>
 </template>
 
 <script>
     import AppLogo from '~/components/AppLogo.vue'
-    import api from "../utils/api"
+    import Footer from '~/components/Footer.vue'
+    import api from "~/utils/api"
     // import imgSwiper from '../components/swiper'
 
     export default {
         head: {
             title: '首页'
         },
+        layout: 'wap',
         components: {
             AppLogo,
+            Footer,
             // imgSwiper
         },
         data() {
             return {
-                indexData: {}
+                indexData: {},
             }
         },
         async asyncData(ctx) {
-            let indexUrl = api.main.index.allInfo;
+            let indexUrl = '/apiPrefix' + api.main.index.allInfo;
             let params = {
                 modelCode: 'index',
                 corpCode: 'cgb2cfxs'
             };
             let indexRes = await ctx.$axios.get(indexUrl, {params});
-            console.log('indexData', indexRes.data.data)
+            // console.log('indexData', indexRes.data.data)
             return {
                 ...indexRes.data.data
             }
@@ -219,33 +202,5 @@
 
 <style scoped="scoped">
     @import "../assets/stylesheets/index.css";
-
-    .container {
-        min-height: 100vh;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-
-    .title {
-        font-family: "Quicksand", "Source Sans Pro", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; /* 1 */
-        display: block;
-        font-weight: 300;
-        font-size: 100px;
-        color: #35495e;
-        letter-spacing: 1px;
-    }
-
-    .subtitle {
-        font-weight: 300;
-        font-size: 42px;
-        color: #526488;
-        word-spacing: 5px;
-        padding-bottom: 15px;
-    }
-
-    .links {
-        padding-top: 15px;
-    }
 </style>
 

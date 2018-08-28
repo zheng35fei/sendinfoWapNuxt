@@ -1,13 +1,9 @@
 <template>
     <div>
-        <div>this is template body</div>
-        <h3>{{params}}</h3>
-        <nuxt-link to="/user">個人中心</nuxt-link>
-
         <div class="list">
             <div data-module="park" data-type="" class="drop-box ">
                 <ul class="page-list list-main">
-                    <li v-for="item in listData" :key="item.id + Math.random()">
+                    <li v-for="item in listData" :key="item.createTime">
                         <nuxt-link to="/park/detail/">
                             <div class="page-list-img">
                                 <img
@@ -37,20 +33,25 @@
             </div>
         </div>
         <div @click="getList">aaaaaaaa</div>
+
+        <Footer></Footer>
     </div>
-    <!--<header-component/>-->
-    <!--<other-component/>-->
+
+
 </template>
 <style scoped>
     @import "../../assets/stylesheets/list.css";
 </style>
 <script>
+    import Footer from '~/components/Footer.vue'
+    import api from '~/utils/api'
     export default {
         async asyncData(ctx) {
             //try {
                 console.log(22222, process.server)
                 console.log(3333, process.client)
-                const listUrl = '/product/api/product/parks';
+            console.log(ctx.env.prefix)
+            const listUrl = '/apiPrefix' + api.ticket.list.pagelist;
                 let params = {
                     "currPage": 1,
                     "pageSize":10,
@@ -62,7 +63,6 @@
                 // console.log(JSON.stringify(listData))
                 // console.log(listData.data.data.rows)
                 return {
-                    params: 'aaaaaaaaa',
                     listData: listData.data.data.rows
                 }
             // } catch (e) {
@@ -83,7 +83,7 @@
         },
         methods:{
              getList: async function () {
-                const listUrl = '/product/api/product/parks';
+                 const listUrl = '/apiPrefix' + '/product/api/product/parks';
                 let params = {
                     "currPage": 1,
                     "pageSize":10,
@@ -96,6 +96,9 @@
                 // this.listData.push(listData.data.data.rows[0])
                  console.log(this.listData)
             }
+        },
+        components: {
+            Footer
         }
     }
 </script>

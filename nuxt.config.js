@@ -2,7 +2,8 @@ const baseUrl = 'http://192.168.200.59:8080/'
 
 module.exports = {
     env: {
-        baseUrl: 'http://192.168.200.59:8080'   // 接口地址
+        baseUrl: 'http://192.168.200.59:8080',   // 接口地址
+        prefix: '/apiPrefix'
     },
     /*
     ** Headers of the page
@@ -50,10 +51,7 @@ module.exports = {
     modules: ['@nuxtjs/axios', '@nuxtjs/auth'],
     auth: {
         redirect: {
-            logout: '/',
-            callback: '/',
-            home: '/',
-            user: '/user'
+            callback: '/callback',
         },
         strategies: {
             local: {
@@ -71,10 +69,9 @@ module.exports = {
         baseURL: baseUrl,
     },
     proxy: {
-        '/product/': baseUrl,
-        '/leaguer/': baseUrl,
-        '/order/': baseUrl,
-        '/info/': baseUrl,
-        '/pay/': baseUrl,
+        '/apiPrefix': {
+            target: baseUrl,
+            pathRewrite: {'^/apiPrefix': ''}
+        }
     }
 }
