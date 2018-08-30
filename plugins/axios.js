@@ -1,11 +1,12 @@
 export default function (ctx, n) {
     ctx.$axios.onRequest(config => {
-        console.log('before', config.url)
         // 删除api前缀
-        console.log('middle', config.url.split('/apiPrefix'))
         if (process.server) {
             config.url = config.url.split('/apiPrefix').length > 1 ? config.url.split('/apiPrefix')[1] : config.url
-            console.log('after', config.url)
+            // /api/auth url地址，需修改baseUrl
+            if (config.url.indexOf('/api/auth') > -1) {
+                config.baseURL = 'http://' + ctx.req.headers.host
+            }
         }
     });
     ctx.$axios.onResponse( response => {
@@ -16,5 +17,8 @@ export default function (ctx, n) {
             // ctx.error(response.data.message)
             // redirect('/error')
         }
+    });
+    ctx.$axios.onError(err => {
+        console.log('error 出错了', err)
     })
 }

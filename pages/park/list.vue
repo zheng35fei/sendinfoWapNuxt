@@ -46,12 +46,11 @@
     import Footer from '~/components/Footer.vue'
     import api from '~/utils/api'
     export default {
-        async asyncData(ctx) {
+        async asyncData({app, env}) {
             //try {
                 console.log(22222, process.server)
                 console.log(3333, process.client)
-            console.log(ctx.env.prefix)
-            const listUrl = '/apiPrefix' + api.ticket.list.pagelist;
+            const listUrl = env.prefix + api.ticket.list.pagelist;
                 let params = {
                     "currPage": 1,
                     "pageSize":10,
@@ -59,7 +58,7 @@
                     "wayType": "2"
                 };
 
-                let listData = await ctx.$axios.get(listUrl, { params });
+            let listData = await app.$axios.get(listUrl, {params});
                 // console.log(JSON.stringify(listData))
                 // console.log(listData.data.data.rows)
                 return {

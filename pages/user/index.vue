@@ -1,7 +1,7 @@
 <template>
     <div>
         <header class="member-header">
-            <h3 class="user-name c-333">{{username}}</h3>
+            <h3 class="user-name c-333"></h3>
             <p class="header-explian c-666">welcome</p>
             <a href="javascript:;" class="user-face">
                 <i class="font-icon icon-iconfont-geren"></i>
@@ -114,7 +114,6 @@
             back() {
                 this.$router.back();
             }
-
         }
     }
 </script>

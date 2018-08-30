@@ -35,7 +35,8 @@ module.exports = {
     /*
     ** Build configuration
     */
-    plugins: ['~/plugins/vue-notifications',
+    plugins: [
+        '~/plugins/vue-notifications',
         '~/plugins/axios'
     ],
     render: {
@@ -44,7 +45,10 @@ module.exports = {
     build: {
         extractCSS: true,
         babel: {
-            plugins: ['transform-decorators-legacy', 'transform-class-properties']
+            plugins: [
+                'transform-decorators-legacy',
+                'transform-class-properties'
+            ]
         }
     },
     serverMiddleware: ['./api/auth'],
@@ -58,7 +62,7 @@ module.exports = {
                 endpoints: {
                     login: { url: '/api/auth/login', method: 'post', propertyName: 'token.accessToken' },
                     logout: { url: '/api/auth/logout', method: 'post' },
-                    user: { url: '/api/auth/user', method: 'get', propertyName: 'userInfo' }
+                    user: {url: '/api/auth/user', method: 'get', propertyName: 'user'}
                 }
             }
         },
