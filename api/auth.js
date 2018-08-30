@@ -27,7 +27,7 @@ app.use(
 // [POST] /login
 app.post('/login', async (req, res, next) => {
     const { username, password } = req.body;
-    const apiHost = process.env._AXIOS_BASE_URL_.split('/apiPrefix')[0]
+    const apiHost = process.env._AXIOS_BASE_URL_
     let loginRes = await axios.get( apiHost + api.member.login.main, {
         params: {
             loginName: username,
@@ -43,7 +43,7 @@ app.post('/login', async (req, res, next) => {
         })
     }
     let loginInfo = loginRes.data.data;
-    console.log(loginInfo)
+    console.log('loginInfo', loginInfo)
     const accessToken = jsonwebtoken.sign(
         {
             username,
@@ -68,7 +68,7 @@ app.get('/user', async (req, res, next) => {
         const { leaguerId, token } = req.user;
         console.log('router /user', req.user)
         let userUrl = api.member.info;
-        const apiHost = process.env._AXIOS_BASE_URL_.split('/apiPrefix')[0]
+        const apiHost = process.env._AXIOS_BASE_URL_
 
         let userRes = await axios.get( apiHost + userUrl, {
             params: {
@@ -81,7 +81,7 @@ app.get('/user', async (req, res, next) => {
         if (userRes.status !== 200 || userRes.data.status !== 200) {
             throw new Error('Invalid username or password')
         }
-        res.json({ userInfo: Object.assign({}, userRes.data.data, req.user)})
+        res.json({ user: Object.assign({}, userRes.data.data, req.user)})
     }catch (e) {
         res.status = e.response.status
         res.json(e.response.data)
@@ -91,7 +91,7 @@ app.get('/user', async (req, res, next) => {
 
 // [POST] /logout
 app.post('/logout', async (req, res, next) => {
-    const apiHost = process.env._AXIOS_BASE_URL_.split('/apiPrefix')[0]
+    const apiHost = process.env._AXIOS_BASE_URL_
     const logoutUrl = apiHost + api.member.logout;
     const { token } = req.user
     console.log(logoutUrl, token)

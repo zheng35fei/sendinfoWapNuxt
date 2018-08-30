@@ -44,19 +44,23 @@
                 </form>
             </div>
         </div>
+        {{error}}
         <div id="mask" class="mask" style="height: 667px;">
             <div class="tips"><p></p><a href="javascript:;" class="queding">确定</a></div>
         </div>
     </div>
 </template>
 <style scoped>
-    @import "../assets/stylesheets/login.css";
+    @import "~/assets/stylesheets/login.css";
 </style>
 <script>
-    import api from '../utils/api'
+    import api from '~/utils/api'
     import querystring from 'querystring'
     import { mapGetters } from 'vuex'
     export default {
+        asyncData(ctx){
+            console.log(ctx.app.$auth.$state)
+        },
         head: {
             title: '登录',
         },
@@ -64,6 +68,7 @@
             return {
                 formIndex: 1,
                 logindata: {},
+                error: null,
                 ruleCustom: {
                     loginName: [
                         { required: true, message: '请输入密码', trigger: 'blur' }
@@ -76,18 +81,18 @@
             }
         },
         computed: {
-            ...mapGetters({
-                username:'auth/username'
-            })
+            // ...mapGetters({
+            //     username:'auth/username'
+            // })
         },
         methods: {
-            showForm: function (i) {
+            showForm(i) {
                 console.log(i)
                 this.formIndex = i;
             },
 
             // send phone validate code
-            getValidateCode: async function(){
+            async getValidateCode(){
                 let url = api.member.login.sendCheckCode
                 // reg:wap注册
                 // pwd:wap找回密码
@@ -103,13 +108,15 @@
             },
 
             // login by password
-            loginSubmit: async function () {
+            async loginSubmit() {
+                this.error = null;
                 return this.$auth.loginWith('local', {
                     data: {
                         username: this.logindata.loginName,
                         password: this.logindata.loginPass,
                     }
                 }).catch(e => {
+                    console.log(e.message)
                     this.error = e + ''
                 })
             },

@@ -33,7 +33,7 @@
                         </nuxt-link>
                     </li>
 
-                    <li class="myorder-item" v-else>
+                    <li class="myorder-item" v-else :key="item.id">
                         <nuxt-link :to="'/order/detail/'+ item.modelCode">
                             <div class="myorder-header">
                             <span class="order-info">
@@ -77,11 +77,13 @@
                 currPage: 1,
                 pageSize: 10
             };
+            let startTime = new Date().getTime()
             let orderListRes = await app.$axios.get(url, {
                 params,
                 headers: {'access-token': userInfo.token}
             });
-            console.log('orderlistres', orderListRes.data.data)
+            let endTime = new Date().getTime()
+            console.log(url, endTime - startTime + 'ms')
             return {
                 orderListData: orderListRes.data.data
             }
@@ -96,8 +98,7 @@
             Footer
         },
         mounted() {
-            console.log('111111111111111111111111111111111111111111111')
-            console.log('33333mounted', this.$auth.$state.user)
+
         }
     }
 </script>

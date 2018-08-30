@@ -186,6 +186,7 @@
             }
         },
         async asyncData(ctx) {
+            console.log('index asyncData', ctx.app.$auth.$state)
             let indexUrl = '/apiPrefix' + api.main.index.allInfo;
             let params = {
                 modelCode: 'index',
@@ -201,6 +202,6 @@
 </script>
 
 <style scoped="scoped">
-    @import "../assets/stylesheets/index.css";
+    @import "~/assets/stylesheets/index.css";
 </style>
 
