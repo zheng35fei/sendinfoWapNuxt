@@ -2,7 +2,7 @@ const baseUrl = 'http://192.168.200.59:8080/'
 
 module.exports = {
     env: {
-        baseUrl: 'http://192.168.200.59:8080',   // 接口地址
+        baseUrl: 'http://192.168.200.59:8080',   // 接口地址1
         prefix: '/apiPrefix'
     },
     /*
